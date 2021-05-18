@@ -21,6 +21,7 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
+  top: 50px;
 }
 
 .todo .container {
@@ -52,6 +53,8 @@
 
 .todo-list {
   height: 5vh;
+  position: relative;
+  top: 50px;
 }
 .todo-list .container {
   height: 10vh;
