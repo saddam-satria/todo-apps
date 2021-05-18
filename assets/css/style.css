@@ -1,0 +1,150 @@
+.header {
+  height: 7vh;
+  background-color: rgb(161, 32, 248);
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.header .container h1 {
+  color: white;
+  font-size: 2em;
+  text-align: center;
+}
+
+/* End Header */
+
+.todo {
+  height: 25vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.todo .container {
+  width: 100%;
+}
+
+.todo .container .input-group input {
+  border-radius: 5px;
+  text-transform: capitalize;
+}
+
+.todo .container #tanggal {
+  width: 80%;
+  border: 1px solid blue;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: rgb(237, 237, 243);
+}
+
+.todo .container .btn-plus {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+
+/* End Todo */
+
+.todo-list {
+  height: 5vh;
+}
+.todo-list .container {
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.todo-list .container .garis {
+  width: 100%;
+  height: 3px;
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.todo-list .container ul {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.todo-list .container ul li {
+  padding: 10px;
+  background-color: rgb(105, 105, 226);
+  margin-top: 1rem;
+  width: 100%;
+  color: white;
+  border: 1px solid lightblue;
+  border-radius: 5px;
+}
+.todo-list .container ul li h2 {
+  font-size: 1.5em;
+  font-weight: 500px;
+}
+.todo-list .container ul li h3 {
+  font-size: 1.2em;
+  color: rgb(193, 206, 206);
+  background-color: rgb(112, 63, 245);
+  padding: 5px;
+  width: 100%;
+}
+.check {
+  display: flex;
+  flex-direction: column;
+  height: 4vh;
+  align-items: flex-end;
+}
+.check input {
+  width: 20%;
+  height: 2vh;
+}
+.hapus {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* desktop */
+@media only screen and (min-width: 1080px) {
+  .header {
+    justify-content: center;
+  }
+  .todo {
+    height: 20vh;
+  }
+  .todo .container {
+    width: 40%;
+  }
+  .todo .container #tanggal {
+    width: 50%;
+  }
+  .todo .container .btn-plus span {
+    width: 7%;
+    padding: 12px;
+    border-radius: 30px;
+  }
+  .todo-list .container .garis {
+    width: 55%;
+  }
+  .todo-list .container ul {
+    width: 57%;
+  }
+  .todo-list .container ul li {
+    width: 100%;
+  }
+  .todo-list .container ul li h3 {
+    width: 22%;
+  }
+  .check {
+    height: 7vh;
+  }
+  .check input {
+    height: 20vh;
+  }
+  
+}
