@@ -23,23 +23,28 @@ const TodoData = () => {
 };
 
 const addTodoToStorage = (todoData) => {
-  // Jika ada data yang undefined
-  if (typeof (localStorage) === undefined) {
-    localStorage.clear()
-  }else{
-    localStorage.setItem(todoData.id, JSON.stringify(todoData));
-    location.href = 'index.html';
-  }
+  localStorage.setItem(todoData.id, JSON.stringify(todoData));
+  location.href = 'index.html';
 };
 
 const addTodoToList = () => {
   let todoDataList = [];
   for (let i = 0; i < localStorage.length; i++) {
     const todoDataListJSON = JSON.parse(localStorage.getItem(localStorage.key(i)));
-    todoDataList.push(todoDataListJSON);
-  }
+    console.log(localStorage.key(i));
+    if (localStorage.key(i) !== undefined || localStorage.key(i) !== null) {
+      todoDataList.push(todoDataListJSON);
+      console.log('jalan');
+    } else {
+      localStorage.clear();
+      console.log('Jalan');
+    };
+    
+  };
+  
   displayTodoList(todoDataList);
   hapusTodoFromList(todoDataList);
+  updateTodoList();
 };
 
 const displayTodoList = (todoList) => {
@@ -56,7 +61,7 @@ const templateTodo = (todo) => {
     </div>
     <div class="col-md-2">
       <div class="check">
-        <input type="checkbox" name="check" id="check" />
+        <input type="checkbox" name="check" id="checkBtn" />
       </div>
       <div class="hapus">
         <a href="#" class="btn btn-danger btn-sm">Hapus</a>
@@ -77,10 +82,29 @@ const hapusTodoFromList = (todoList) => {
     listIndex.push(item);
   });
   const deleteBtn = document.querySelectorAll('.todo-list .container ul li .hapus a');
+
   deleteBtn.forEach((button, index) => {
     button.addEventListener('click', function () {
       localStorage.removeItem(getKey[index]);
       listIndex[index].style.display = 'none';
+    });
+  });
+};
+
+const updateTodoList = () => {
+  const todoTitle = [];
+  const h2 = document.querySelectorAll('#todoList h2');
+  h2.forEach((item) => {
+    todoTitle.push(item);
+  });
+  const btnCheck = document.querySelectorAll('.todo-list .container ul li .check input');
+  btnCheck.forEach((item, index) => {
+    item.addEventListener('click', function () {
+      if (item.checked) {
+        todoTitle[index].style.textDecoration = 'line-through';
+      } else {
+        todoTitle[index].style.textDecoration = 'unset';
+      }
     });
   });
 };
