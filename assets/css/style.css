@@ -33,6 +33,9 @@
   text-transform: capitalize;
   position: relative;
 }
+.todo .container .input-group input:focus {
+  top: 3rem;
+}
 
 .todo .container #tanggal {
   width: 80%;
