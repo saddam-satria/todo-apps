@@ -34,8 +34,8 @@
   position: relative;
 }
 .todo .container .input-group input:focus {
-  top: 2rem;
-  margin-bottom: 2rem;
+  top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .todo .container #tanggal {
@@ -59,7 +59,7 @@
 .todo-list {
   height: 5vh;
   position: relative;
-  top: 2rem;
+  top: 4rem;
 }
 .todo-list .container {
   height: 10vh;
@@ -126,6 +126,7 @@
   }
   .todo {
     height: 20vh;
+    
   }
   .todo .container {
     width: 40%;
@@ -137,6 +138,9 @@
     width: 7%;
     padding: 12px;
     border-radius: 30px;
+  }
+  .todo-list {
+    top: 0px;
   }
   .todo-list .container .garis {
     width: 55%;
