@@ -13,9 +13,9 @@ const TodoData = () => {
 
   if (todoInput == '' || dateInput == '') {
     swal({
-      text: "Data tidak boleh kosong !",
-      icon: "error",
-      button: 'Oke deh'
+      text: 'Data tidak boleh kosong !',
+      icon: 'error',
+      button: 'Oke deh',
     });
   } else {
     addTodoToStorage(todoData);
@@ -23,8 +23,13 @@ const TodoData = () => {
 };
 
 const addTodoToStorage = (todoData) => {
-  localStorage.setItem(todoData.id, JSON.stringify(todoData));
-  location.href = 'index.html';
+  // Jika ada data yang undefined
+  if (typeof (localStorage) === undefined) {
+    localStorage.clear()
+  }else{
+    localStorage.setItem(todoData.id, JSON.stringify(todoData));
+    location.href = 'index.html';
+  }
 };
 
 const addTodoToList = () => {
