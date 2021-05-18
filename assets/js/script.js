@@ -29,19 +29,15 @@ const addTodoToStorage = (todoData) => {
 
 const addTodoToList = () => {
   let todoDataList = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    const todoDataListJSON = JSON.parse(localStorage.getItem(localStorage.key(i)));
-    console.log(localStorage.key(i));
-    if (localStorage.key(i) !== undefined || localStorage.key(i) !== null) {
+  if (localStorage.length < 1) {
+    localStorage.clear();
+  } else {
+    for (let i = 0; i < localStorage.length; i++) {
+      const todoDataListJSON = JSON.parse(localStorage.getItem(localStorage.key(i)));
       todoDataList.push(todoDataListJSON);
-      console.log('jalan');
-    } else {
-      localStorage.clear();
-      console.log('Jalan');
-    };
-    
-  };
-  
+    }
+  }
+
   displayTodoList(todoDataList);
   hapusTodoFromList(todoDataList);
   updateTodoList();

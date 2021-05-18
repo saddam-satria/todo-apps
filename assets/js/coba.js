@@ -1,7 +1,8 @@
-const todoInput = document.querySelector('#todo-input').value;
-const btnTodo = document.querySelector('#btnAddTodo')
+const arr = []
 
-btnTodo.addEventListener('click', function(){
-    
-    console.log('Berhasl')
-})
+
+if(arr.length == 0){
+    console.log('kosong');
+}else{
+    console.log('tidak kosong');
+}
