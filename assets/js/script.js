@@ -28,31 +28,62 @@ const addTodoToStorage = (todoData) => {
 };
 
 const addTodoToList = () => {
-  let todoDataList = [];
+  const todoDataListRaw = [];
+  let todoDataListBelum = [];
+  let todoDataListSudah = [];
   if (localStorage.length < 1) {
     localStorage.clear();
   } else {
     for (let i = 0; i < localStorage.length; i++) {
       const todoDataListJSON = JSON.parse(localStorage.getItem(localStorage.key(i)));
-      todoDataList.push(todoDataListJSON);
+      todoDataListRaw.push(todoDataListJSON);
     }
   }
 
-  displayTodoList(todoDataList);
-  hapusTodoFromList(todoDataList);
-  updateTodoList();
+  todoDataListSudah = todoDataListRaw.filter((item) => {
+    return item.isComplete == true;
+  });
+  todoDataListBelum = todoDataListRaw.filter((item) => {
+    return item.isComplete == false;
+  });
+
+  displayTodoList(todoDataListBelum, todoDataListSudah);
+  hapusTodoFromList(todoDataListBelum, todoDataListSudah);
+  updateTodoList(todoDataListBelum, todoDataListSudah);
 };
 
-const displayTodoList = (todoList) => {
-  const ul = document.querySelector('.todo-list .container ul');
-  ul.innerHTML = `${todoList.map(templateTodo).join('')}`;
+const displayTodoList = (todoListBelum, todoListSudah) => {
+  const todoBelumSelesai = document.querySelector('.todo-list .container #belum-selesai');
+  const todoSudahSelesai = document.querySelector('.todo-list .container #sudah-selesai');
+  todoBelumSelesai.innerHTML = `${todoListBelum.map(templateTodo).join('')}`;
+  todoSudahSelesai.innerHTML = `${todoListSudah.map(templateTodo).join('')}`;
+
+
+  const h2Belum = document.querySelectorAll('.todo-list .container #belum-selesai li h2')
+  h2Belum.forEach(item =>{
+    item.style.textDecoration =  'unset'  
+  })
+  const h2Sudah = document.querySelectorAll('.todo-list .container #sudah-selesai li h2')
+  h2Sudah.forEach(item =>{
+    item.style.textDecoration = 'line-through'
+    item.style.color = 'rgb(233, 233, 250)'
+  })
+
+  const liSudah = document.querySelectorAll('.todo-list .container #sudah-selesai li')
+  liSudah.forEach(item=>{
+    item.classList.add('bg-success')
+  })
+  const h3Sudah = document.querySelectorAll('.todo-list .container #sudah-selesai li h3')
+  h3Sudah.forEach(item=>{
+    item.style.color = 'rgb(233, 233, 250)'
+  })
 };
 
 const templateTodo = (todo) => {
   return `<li>
   <div class="row" id="todoList">
     <div class="col-md-10" >
-      <h2>${todo.todo}</h2>
+      <h2 class="text-capitalize">${todo.todo}</h2>
       <h3>${todo.date}</h3>
     </div>
     <div class="col-md-2">
@@ -67,39 +98,78 @@ const templateTodo = (todo) => {
 </li>`;
 };
 
-const hapusTodoFromList = (todoList) => {
-  const getKey = [];
-  todoList.forEach((item) => {
-    getKey.push(item.id);
+const hapusTodoFromList = (todoListBelum, todoListSudah) => {
+  const getKeyBelum = [];
+  todoListBelum.forEach((item) => {
+    getKeyBelum.push(item.id);
   });
-  const listIndex = [];
-  const li = document.querySelectorAll('.todo-list .container ul li');
-  li.forEach((item) => {
-    listIndex.push(item);
+  const listTodoBelum = document.querySelectorAll('.todo-list .container #belum-selesai li');
+  const listTodoSudah = document.querySelectorAll('.todo-list .container #sudah-selesai li');
+  const todoBelum = [];
+  const todoSudah = [];
+  listTodoBelum.forEach((item) => {
+    todoBelum.push(item);
   });
-  const deleteBtn = document.querySelectorAll('.todo-list .container ul li .hapus a');
+  listTodoSudah.forEach((item) => {
+    todoSudah.push(item);
+  });
 
-  deleteBtn.forEach((button, index) => {
+  const deleteBtnTodoBelum = document.querySelectorAll('.todo-list .container #belum-selesai li .hapus a');
+  const deleteBtnTodoSudah = document.querySelectorAll('.todo-list .container #sudah-selesai li .hapus a');
+
+  deleteBtnTodoBelum.forEach((button, index) => {
     button.addEventListener('click', function () {
-      localStorage.removeItem(getKey[index]);
-      listIndex[index].style.display = 'none';
+      localStorage.removeItem(getKeyBelum[index]);
+      todoBelum[index].style.display = 'none';
+    });
+  });
+  const getKeySudah = [];
+  todoListSudah.forEach((item) => {
+    getKeySudah.push(item.id);
+  });
+  deleteBtnTodoSudah.forEach((button, index) => {
+    button.addEventListener('click', function () {
+      localStorage.removeItem(getKeySudah[index]);
+      todoSudah[index].style.display = 'none';
     });
   });
 };
 
-const updateTodoList = () => {
-  const todoTitle = [];
-  const h2 = document.querySelectorAll('#todoList h2');
-  h2.forEach((item) => {
-    todoTitle.push(item);
+const updateTodoList = (todoListBelum, todoSudahSelesai) => {
+  const getKeyBelum = [];
+  todoListBelum.forEach((item) => {
+    getKeyBelum.push(item.id);
   });
-  const btnCheck = document.querySelectorAll('.todo-list .container ul li .check input');
-  btnCheck.forEach((item, index) => {
+
+  const btnCheckBelum = document.querySelectorAll('.todo-list .container #belum-selesai li .check input');
+  btnCheckBelum.forEach((item, index) => {
     item.addEventListener('click', function () {
       if (item.checked) {
-        todoTitle[index].style.textDecoration = 'line-through';
+        todoListBelum[index].isComplete = true;
+        localStorage.setItem(getKeyBelum[index], JSON.stringify(todoListBelum[index]));
+        location.href = 'index.html';
       } else {
-        todoTitle[index].style.textDecoration = 'unset';
+        todoListBelum[index].isComplete = false;
+        localStorage.setItem(getKeyBelum[index], JSON.stringify(todoListBelum[index]));
+        location.href = 'index.html';
+      }
+    });
+  });
+  const getKeySudah = [];
+  todoSudahSelesai.forEach((item) => {
+    getKeySudah.push(item.id);
+  });
+  const btnCheckSudah = document.querySelectorAll('.todo-list .container #sudah-selesai li .check input');
+  btnCheckSudah.forEach((item, index) => {
+    item.addEventListener('click', function () {
+      if (item.checked) {
+        todoSudahSelesai[index].isComplete = false;
+        localStorage.setItem(getKeySudah[index], JSON.stringify(todoSudahSelesai[index]));
+        location.href = 'index.html';
+      } else {
+        todoSudahSelesai[index].isComplete = true;
+        localStorage.setItem(getKeySudah[index], JSON.stringify(todoSudahSelesai[index]));
+        location.href = 'index.html';
       }
     });
   });

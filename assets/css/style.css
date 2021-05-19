@@ -43,7 +43,8 @@
   border: 1px solid blue;
   border-radius: 5px;
   padding: 8px;
-  background-color: rgb(237, 237, 243);
+  background-color: rgb(237, 237, 243); 
+
 }
 
 .todo .container .btn-plus {
@@ -99,7 +100,6 @@
 }
 .todo-list .container ul li h3 {
   font-size: 1.2em;
-  color: rgb(193, 206, 206);
   background-color: rgb(112, 63, 245);
   padding: 5px;
   width: 100%;
@@ -118,7 +118,9 @@
   display: flex;
   justify-content: flex-end;
 }
-
+#sudah-selesai{
+  margin-top: -1rem;
+}
 /* desktop */
 @media only screen and (min-width: 1080px) {
   .header {
