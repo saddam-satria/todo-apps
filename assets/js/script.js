@@ -77,6 +77,11 @@ const displayTodoList = (todoListBelum, todoListSudah) => {
   h3Sudah.forEach(item=>{
     item.style.color = 'rgb(233, 233, 250)'
   })
+
+  const btnCheckSudah = document.querySelectorAll('.todo-list .container #sudah-selesai li .check input');
+  btnCheckSudah.forEach(item=>{
+    item.checked = true
+  })
 };
 
 const templateTodo = (todo) => {
@@ -162,7 +167,7 @@ const updateTodoList = (todoListBelum, todoSudahSelesai) => {
   const btnCheckSudah = document.querySelectorAll('.todo-list .container #sudah-selesai li .check input');
   btnCheckSudah.forEach((item, index) => {
     item.addEventListener('click', function () {
-      if (item.checked) {
+      if (!item.checked) {
         todoSudahSelesai[index].isComplete = false;
         localStorage.setItem(getKeySudah[index], JSON.stringify(todoSudahSelesai[index]));
         location.href = 'index.html';
